@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Faucet Claim Logs</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  .claimed { color: green; font-weight: bold; }
+  .skipped { color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+  <h1>Faucet Claim Logs</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp (UTC)</th>
+        <th>Faucet</th>
+        <th>URL</th>
+        <th>Status</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in claim_log %}
+      <tr>
+        <td>{{ entry.timestamp }}</td>
+        <td>{{ entry.faucet }}</td>
+        <td><a href="{{ entry.url }}" target="_blank">{{ entry.faucet }}</a></td>
+        <td class="{{ entry.status }}">{{ entry.status.capitalize() }}</td>
+        <td>{{ entry.reason_or_amount }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No logs found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
